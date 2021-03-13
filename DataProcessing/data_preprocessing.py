@@ -6,6 +6,8 @@ import pandas as pd
 from sklearn.impute import KNNImputer
 from sklearn.preprocessing import  OneHotEncoder, LabelEncoder
 from sklearn.compose import  ColumnTransformer
+from sklearn.model_selection import  train_test_split
+from sklearn.preprocessing import StandardScaler
 
 #load dataset
 dataset = pd.read_csv('Data/data_preprocessing.csv')
@@ -41,4 +43,11 @@ X = columntransformer.fit_transform(X)
 labelencoder_y = LabelEncoder()
 y = labelencoder_y.fit_transform(y)
 
-print (y)
+#splitting dataset into training set and test test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+
+#Feature scaling
+standarscaler = StandardScaler()
+X_train[:,3:5] = standarscaler.fit_transform(X_train[:,3:5])
+X_test[:,3:5] = standarscaler.fit_transform(X_test[:,3:5])
+
